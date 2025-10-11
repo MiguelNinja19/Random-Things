@@ -1,2 +1,4 @@
 # Random-Things
 where i get the Fanboy's problematic-sites wayback machine jun 07 2023.txt : https://web.archive.org/web/20230607215936/https://secure.fanboy.co.nz/fanboy-problematic-sites.txt
+
+where i get the I don't care about cookies Version: 342.202207090855 wayback machine jul 10 2022.txt : https://web.archive.org/web/20220710020106/https://www.i-dont-care-about-cookies.eu/abp/
