@@ -21,4 +21,4 @@ Por algum motivo ele ou/e algumas das listas acima fazem o ublock origin ficar d
 
 # Problemas com o sistema de conecção do Google/Sistema de log-in
 Se estiver tendo problemas com sites retire o filtro: yokofilling annoyances
-para mim este eu acho é o unico problema com essa lista
+para mim este eu acho é o unico problema com essa lista. e tambem a lista regional portugue/spanish/brazilian do adguard faz tambem o botao desaparecer principalmente em sites desse tipo
