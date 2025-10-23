@@ -8,7 +8,6 @@ onde peguei o I don't care about cookies Version: 342.202207090855 wayback machi
 onde peguei o I don't care about cookies Version: 343.202209151330 wayback machine sep 19 2022.txt : https://web.archive.org/web/20220919175055/https://www.i-dont-care-about-cookies.eu/abp/
 
 onde peguei o catsxp-unbreak waybackmachine oct 16 2021.txt : https://web.archive.org/web/20211016002424/https://raw.githubusercontent.com/catsxp/adblock-lists/master/catsxp-unbreak.txt
-abp:subscribe?location=https://raw.githubusercontent.com/MiguelNinja19/Random-Things/refs/heads/main/catsxp-unbreak%20waybackmachine%20oct%2016%202021.txt&title=catsxp-unbreak
 
 onde peguei o Nano Defender Integration  Cached: Tue, 25 Aug 2020 02:52:14 GMT waybackmachine nov 17 2020.txt : https://web.archive.org/web/20201117043932/https://gitcdn.xyz/cdn/NanoAdblocker/NanoFilters/5e63d1a37cdb3e277f8db30e87df56e816c454c9/NanoMirror/NanoDefender.txt
 
