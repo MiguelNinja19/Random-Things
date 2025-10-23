@@ -16,7 +16,7 @@ onde peguei o Nano Filters wayback machine nov 12 2020.txt : https://web.archive
 Onde peguei o ngç do resorce do Nano Defender for firefox (a versão para firefox n tem virus), NanoResources wayback machine nov 12 2020.txt : https://web.archive.org/web/20201112035613/https://gitcdn.xyz/cdn/NanoAdblocker/NanoFilters/5e63d1a37cdb3e277f8db30e87df56e816c454c9/NanoFilters/NanoResources.txt
 
 Nano Defender (para o firefox mais espificadamente):
-Por algum motivo ele ou/e algumas das listas acima fazem o ublock origin ficar detectavel mais especificadamente para o YouTube o que não é legal principalmente pelo motivo do Nano Defender ser para defusar anti adblock o que é ruim, apesar de ser um "fork" do AakList nesse caso do YouTube ele se sai pior.
+Por algum motivo ele ou/e algumas das listas acima fazem o ublock origin ficar detectavel mais especificadamente para o YouTube o que não é legal principalmente pelo motivo do Nano Defender ser para defusar anti adblock o que é ruim, apesar de ser um "fork" do AakList nesse caso do YouTube ele se sai pior. por algum motivo agora parou de ter o popup do anti adblock o que é estranho mas que é melhor ja que uma versão mais recente do AAKlist (mais ainda fora de epoca)
 
 # Problemas com o sistema de conecção do Google/Sistema de log-in
 Se estiver tendo problemas com sites retire o filtro: yokofilling annoyances
