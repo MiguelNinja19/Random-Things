@@ -13,6 +13,8 @@ onde peguei o Nano Defender Integration  Cached: Tue, 25 Aug 2020 02:52:14 GMT w
 
 onde peguei o Nano Filters wayback machine nov 12 2020.txt : https://web.archive.org/web/20201112023451/https://gitcdn.xyz/cdn/NanoAdblocker/NanoFilters/5e63d1a37cdb3e277f8db30e87df56e816c454c9/NanoFilters/NanoBase.txt
 
+o Nano Filters (mod) ele é uma modificação da lista de mesmo nome so que sem o que esta em parenteses. Bem vc me pergunta: Mas pq vc fez essa(s) modificação(ões)? Bem para tirar como escrito no nome do arquivo aqui no repositorio para tirar problemas/coisas que quebram os sites e bem qual(is) foi(ram) a(s) modificação(ões) e o que acontecia com esse(s) filtro(s)? Lista: 1: tirei o filtro: canyoublockit.com##section:has-text(Advertisement) , pois ele quebrava o site principalmente no modo advanced deixando sem os ngç.
+
 Onde peguei o ngç do resorce do Nano Defender for firefox (a versão para firefox n tem virus), NanoResources wayback machine nov 12 2020.txt : https://web.archive.org/web/20201112035613/https://gitcdn.xyz/cdn/NanoAdblocker/NanoFilters/5e63d1a37cdb3e277f8db30e87df56e816c454c9/NanoFilters/NanoResources.txt
 
 Nano Defender (para o firefox mais espificadamente):
