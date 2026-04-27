@@ -4,6 +4,8 @@
 ! Baseado na documentação oficial: github.com/gorhill/uBlock/wiki/Resources-Library
 ! Testado contra: jasonli0616.github.io + leaf48.github.io + classmarker.com
 ! Requer: "I am an advanced user" ativado
+! Changlog:
+!   -Removido trusted-
 ! ESTRUTURA:
 !   - RISCO 🟢 BAIXO  → ativo no global (100% seguro)
 !   - RISCO 🟡🔴 MÉDIO/ALTO → comentado com 2 OPÇÕES:
@@ -16,9 +18,9 @@
 ! RISCO: 🟢 BAIXO — 100% seguro
 ! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-*##+js(trusted-set-constant, document.hidden, false)
-*##+js(trusted-set-constant, document.visibilityState, visible)
-*##+js(trusted-set-constant, document.webkitVisibilityState, visible)
+*##+js(set-constant, document.hidden, false)
+*##+js(set-constant, document.visibilityState, visible)
+*##+js(set-constant, document.webkitVisibilityState, visible)
 *##+js(set-constant, document.hasFocus, trueFunc)
 *##+js(set-constant, window.blurred, false)
 *##+js(set-constant, document.mozHidden, false)
