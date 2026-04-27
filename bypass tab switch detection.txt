@@ -1,0 +1,254 @@
+! ============================================================
+! Title: Bypass Tab Switch
+! BYPASS TAB SWITCH + MOUSE BOUNDARY — v25 FINAL
+! Baseado na documentação oficial: github.com/gorhill/uBlock/wiki/Resources-Library
+! Testado contra: jasonli0616.github.io + leaf48.github.io + classmarker.com
+! Requer: "I am an advanced user" ativado
+! ESTRUTURA:
+!   - RISCO 🟢 BAIXO  → ativo no global (100% seguro)
+!   - RISCO 🟡🔴 MÉDIO/ALTO → comentado com 2 OPÇÕES:
+!       • OPÇÃO 1 (sem regex): mais efetiva, quebra sites
+!       • OPÇÃO 2 (com regex): menos efetiva, mais segura
+! ============================================================
+
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+! [GLOBAL] VISIBILITY & FOCUS — Core Anti-Proctoring
+! RISCO: 🟢 BAIXO — 100% seguro
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+*##+js(trusted-set-constant, document.hidden, false)
+*##+js(trusted-set-constant, document.visibilityState, visible)
+*##+js(trusted-set-constant, document.webkitVisibilityState, visible)
+*##+js(set-constant, document.hasFocus, trueFunc)
+*##+js(set-constant, window.blurred, false)
+*##+js(set-constant, document.mozHidden, false)
+*##+js(set-constant, document.webkitHidden, false)
+*##+js(set-constant, document.msHidden, false)
+
+*##+js(set-constant, document.onvisibilitychange, null)
+*##+js(set-constant, window.onblur, null)
+*##+js(set-constant, window.onfocus, null)
+*##+js(set-constant, document.onblur, null)
+
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+! [GLOBAL] EVENT LISTENERS — Risco Baixo (Ativos)
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+! RISCO: 🟢 BAIXO
+*##+js(aeld, visibilitychange)
+*##+js(aeld, webkitvisibilitychange)
+*##+js(aeld, pagehide)
+*##+js(aeld, pageshow)
+
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+! [GLOBAL] EVENT LISTENERS — Risco Alto (Comentados com Opções)
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+! ──────────────────────────────────────────────────────────
+! BLUR — Descomente UMA das opções abaixo se necessário:
+! ──────────────────────────────────────────────────────────
+! RISCO: 🔴 ALTO
+! Quebra: select boxes, dropdowns, formulários
+! Bypass: proctoring de "test out-of-focus"
+!
+! OPÇÃO 1 (sem regex) — mais efetiva, quebra Gmail/Outlook/etc:
+! *##+js(aeld, blur)
+!
+! OPÇÃO 2 (com regex) — menos efetiva, mais segura:
+! Bloqueia apenas listeners cujo código (.toString()) contenha
+! palavras de proctoring. Select boxes do Gmail passam livre.
+! LIMITAÇÃO: pode não funcionar se o código for minificado.
+! *##+js(aeld, blur, /proctor|exam|test|quiz|cheat|monitor|switch|tab|focus|track|detect/i)
+
+! ──────────────────────────────────────────────────────────
+! FOCUS / FOCUSIN / FOCUSOUT — Descomente UMA das opções:
+! ──────────────────────────────────────────────────────────
+! RISCO: 🔴 ALTO
+! Quebra: navegação por teclado, formulários, select boxes
+! Bypass: proctoring de focus tracking
+!
+! OPÇÃO 1 (sem regex) — mais efetiva, quebra sites:
+! *##+js(aeld, focus)
+! *##+js(aeld, focusin)
+! *##+js(aeld, focusout)
+!
+! OPÇÃO 2 (com regex) — menos efetiva, mais segura:
+! *##+js(aeld, focus, /proctor|exam|test|quiz|cheat|monitor|switch|tab|warn|alert/i)
+! *##+js(aeld, focusin, /proctor|exam|test|quiz|cheat|monitor|switch|tab|warn|alert/i)
+! *##+js(aeld, focusout, /proctor|exam|test|quiz|cheat|monitor|switch|tab|warn|alert/i)
+
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+! [GLOBAL] FULLSCREEN
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+! RISCO: 🟢 BAIXO
+*##+js(aeld, webkitfullscreenchange)
+*##+js(set-constant, document.fullscreenElement, null)
+*##+js(set-constant, document.webkitFullscreenElement, null)
+
+! ──────────────────────────────────────────────────────────
+! FULLSCREENCHANGE — Descomente UMA das opções:
+! ──────────────────────────────────────────────────────────
+! RISCO: 🔴 ALTO
+! Quebra: fullscreen do YouTube, players de vídeo
+! Bypass: proctoring de "leaving full screen"
+!
+! OPÇÃO 1 (sem regex) — mais efetiva, quebra YouTube:
+! *##+js(aeld, fullscreenchange)
+!
+! OPÇÃO 2 (com regex) — menos efetiva, mais segura:
+! Bloqueia apenas listeners de proctoring.
+! LIMITAÇÃO: pode não funcionar em código minificado.
+! *##+js(aeld, fullscreenchange, /proctor|exam|test|quiz|cheat|monitor|detect|warn/i)
+
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+! [GLOBAL] MOUSE BOUNDARY — Risco Baixo (Ativos)
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+! RISCO: 🟢 BAIXO
+*##+js(aeld, mouseleave)
+*##+js(aeld, pointerleave)
+*##+js(aeld, pointerout)
+
+*##+js(set-constant, document.onmouseleave, null)
+*##+js(set-constant, document.onmouseout, null)
+*##+js(set-constant, window.onmouseleave, null)
+
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+! [GLOBAL] MOUSE BOUNDARY — Risco Alto (Comentados com Opções)
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+! ──────────────────────────────────────────────────────────
+! MOUSEOUT — Descomente UMA das opções:
+! ──────────────────────────────────────────────────────────
+! RISCO: 🔴 ALTO
+! Quebra: select boxes do Gmail, dropdowns Material Design
+! Bypass: proctoring de "mouse leaving test boundaries"
+!
+! OPÇÃO 1 (sem regex) — mais efetiva, quebra Gmail:
+! *##+js(aeld, mouseout)
+!
+! OPÇÃO 2 (com regex) — menos efetiva, mais segura:
+! Bloqueia apenas listeners de boundary detection.
+! *##+js(aeld, mouseout, /bound|limit|monitor|track|exit|leave|proctor|exam|test|quiz/i)
+
+! ──────────────────────────────────────────────────────────
+! MOUSEENTER — Descomente UMA das opções:
+! ──────────────────────────────────────────────────────────
+! RISCO: 🔴 ALTO
+! Quebra: hover menus do YouTube, tooltips
+! Bypass: proctoring de mouse boundary
+!
+! OPÇÃO 1 (sem regex) — mais efetiva, quebra sites:
+! *##+js(aeld, mouseenter)
+!
+! OPÇÃO 2 (com regex) — menos efetiva, mais segura:
+! *##+js(aeld, mouseenter, /bound|limit|monitor|track|exit|leave|proctor|exam|test|quiz/i)
+
+! ──────────────────────────────────────────────────────────
+! MOUSEMOVE — Descomente UMA das opções (NÃO RECOMENDADO):
+! ──────────────────────────────────────────────────────────
+! RISCO: 🔴 ALTO
+! Quebra: cursores customizados, canvas, jogos, drag & drop, mapas
+! Bypass: proctoring de mouse boundary (detecção por coordenadas)
+!
+! OPÇÃO 1 (sem regex) — NÃO RECOMENDADO NUNCA GLOBAL:
+! *##+js(aeld, mousemove)
+!
+! OPÇÃO 2 (com regex) — NÃO RECOMENDADO mesmo com regex:
+! *##+js(aeld, mousemove, /bound|limit|monitor|track|exit|leave|proctor|exam/i)
+
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+! [GLOBAL] ANTI-POLLING
+! RISCO: 🟢 BAIXO
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+*##+js(no-setInterval-if, /hidden|visibilityState|hasFocus|tabSwitch|switchCount|proctoring/i)
+*##+js(no-setTimeout-if, /hidden|visibilityState|hasFocus|tabSwitch/i)
+
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+! [GLOBAL] TELEMETRIA
+! RISCO: 🟢 BAIXO
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+*##+js(set-constant, navigator.sendBeacon, noopFunc)
+
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+! [GLOBAL] SCRIPTLETS EXTRAS (Risco Médio — Comentados)
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+! ──────────────────────────────────────────────────────────
+! ABORT-ON-STACK-TRACE (aost) — Descomente se necessário:
+! ──────────────────────────────────────────────────────────
+! RISCO: 🟡 MÉDIO
+! Quebra: pode abortar scripts legítimos (analytics, lazy loading)
+! Bypass: aborta scripts quando stack trace contém palavras de proctoring
+!
+! *##+js(aost, document.hidden, /proctor|exam|monitor|detect/i)
+! *##+js(aost, document.visibilityState, /proctor|exam|monitor|detect/i)
+
+! ──────────────────────────────────────────────────────────
+! PERFORMANCE OBSERVER — Descomente se necessário:
+! ──────────────────────────────────────────────────────────
+! RISCO: 🟡 MÉDIO
+! Quebra: lazy loading, performance analytics, sites modernos
+! Bypass: alguns sites de proctoring usam Performance API para
+! detectar se scriptlets foram injetados
+!
+! *##+js(set-constant, PerformanceObserver.prototype.observe, noopFunc)
+
+! ╔══════════════════════════════════════════════════════════╗
+! ║           TARGETED ATTACKS — SITES ESPECÍFICOS           ║
+! ║  Aqui usamos TODAS as regras SEM regex                   ║
+! ║  (máxima efetividade no bypass de proctoring)            ║
+! ╚══════════════════════════════════════════════════════════╝
+
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+! CLASSMARKER — Targeted Attack
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+classmarker.com##+js(aeld, blur)
+classmarker.com##+js(aeld, focus)
+classmarker.com##+js(aeld, focusin)
+classmarker.com##+js(aeld, focusout)
+classmarker.com##+js(aeld, fullscreenchange)
+classmarker.com##+js(aeld, mouseout)
+classmarker.com##+js(aeld, mouseenter)
+classmarker.com##+js(aeld, mousemove)
+classmarker.com##+js(set-constant, document.onmousemove, null)
+
+! ⚠️ Spoof de coordenadas (COMENTADO)
+! Última linha de defesa. Pode quebrar select boxes do exame.
+! classmarker.com##+js(set-constant, MouseEvent.prototype.clientX, 300)
+! classmarker.com##+js(set-constant, MouseEvent.prototype.clientY, 300)
+! classmarker.com##+js(set-constant, MouseEvent.prototype.pageX, 300)
+! classmarker.com##+js(set-constant, MouseEvent.prototype.pageY, 300)
+
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+! JASONLI0616 — Targeted Attack
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+jasonli0616.github.io##+js(set-constant, timesSwitched, 0)
+jasonli0616.github.io##+js(set-constant, winIsActive, true)
+jasonli0616.github.io##+js(aeld, blur)
+jasonli0616.github.io##+js(aeld, focus)
+jasonli0616.github.io##+js(aeld, focusin)
+jasonli0616.github.io##+js(aeld, focusout)
+jasonli0616.github.io##+js(aeld, fullscreenchange)
+jasonli0616.github.io##+js(aeld, mouseout)
+jasonli0616.github.io##+js(aeld, mouseenter)
+jasonli0616.github.io##+js(aeld, mousemove)
+||jasonli0616.github.io/tabs-test/script.js^$script
+
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+! LEAF48 — Targeted Attack
+! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+leaf48.github.io##+js(aeld, blur)
+leaf48.github.io##+js(aeld, focus)
+leaf48.github.io##+js(aeld, focusin)
+leaf48.github.io##+js(aeld, focusout)
+leaf48.github.io##+js(aeld, fullscreenchange)
+leaf48.github.io##+js(aeld, mouseout)
+leaf48.github.io##+js(aeld, mouseenter)
+leaf48.github.io##+js(aeld, mousemove)
